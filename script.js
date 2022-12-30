@@ -8,15 +8,14 @@ function buildCards(asArray = true) {
   const values = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"];
   const packArr = [];
   const packObj = {};
-
-  // write your code here
-  for (var a in suits){
+for (var a in suits){
     for (var s in values){
       packArr.push(values[s] + " " + "of"+ " " + suits[a]);
-      packArr[values[s]+ " " + "of" + " " + suits[a]] = parseInt(s)+1
+      packObj[values[s]+ " " + "of" + " " + suits[a]] = parseInt(s)+1
     }
-    return asArray ? values : packArr
   }
+  console.log(packArr);
+  console.log(packObj);
 
   if (!asArray) {
     return packObj;
