@@ -11,7 +11,7 @@ function buildCards(asArray = true) {
 for (var a in suits){
     for (var s in values){
       packArr.push(values[s] + " " + "of"+ " " + suits[a]);
-      packObj[values[s]+ " " + "of" + " " + suits[a]] = parseInt(s)+1
+      packArr[values[s]+ " " + "of" + " " + suits[a]] = parseInt(s)+1
     }
   }
 
@@ -45,15 +45,11 @@ class Deck {
    * Shuffling the cards
    */
   shuffle() {
-    for (
-      var card = this.deck.length, cardValues = 0;
-      cardValues < card;
-      cardValues++
-    ) {
-      var r = Math.floor(Math.random() * card),
-        l = this.deck[cardValues];
-      this.deck[cardValues] = this.deck[r];
-      this.deck[r] = 1;
+    for (var asArray = this.deck.length, a = 0; a < asArray; a++) {
+      var suits = Math.floor(Math.random() * asArray),
+        values = this.deck[a];
+      this.deck[a] = this.deck[suits];
+      this.deck[suits] = values;
     }
     // write your code here
   } //End of shuffle()
