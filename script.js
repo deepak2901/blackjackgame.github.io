@@ -14,8 +14,6 @@ for (var a in suits){
       packObj[values[s]+ " " + "of" + " " + suits[a]] = parseInt(s)+1
     }
   }
-  console.log(packArr);
-  console.log(packObj);
 
   if (!asArray) {
     return packObj;
