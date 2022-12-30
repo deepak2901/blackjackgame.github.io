@@ -10,116 +10,13 @@ function buildCards(asArray = true) {
   const packObj = {};
 
   // write your code here
-
-  packArr = [
-    "Ace of Hearts",
-    "2 of Hearts",
-    "3 of Hearts",
-    "4 of Hearts",
-    "5 of Hearts",
-    "6 of Hearts",
-    "7 of Hearts",
-    "8 of Hearts",
-    "9 of Hearts",
-    "10 of Hearts",
-    "Jack of Hearts",
-    "Queen of Hearts",
-    "King of Hearts",
-    "Ace of Diamonds",
-    "2 of Diamonds",
-    "3 of Diamonds",
-    "4 of Diamonds",
-    "5 of Diamonds",
-    "6 of Diamonds",
-    "7 of Diamonds",
-    "8 of Diamonds",
-    "9 of Diamonds",
-    "10 of Diamonds",
-    "Jack of Diamonds",
-    "Queen of Diamonds",
-    "King of Diamonds",
-    "Ace of clubs",
-    "2 of clubs",
-    "3 of clubs",
-    "4 of clubs",
-    "5 of clubs",
-    "6 of clubs",
-    "7 of clubs",
-    "8 of clubs",
-    "9 of clubs",
-    "10 of clubs",
-    "Jack of clubs",
-    "Queen of clubs",
-    "King of clubs",
-    "Ace of Spades",
-    "2 of Spades",
-    "3 of Spades",
-    "4 of Spades",
-    "5 of Spades",
-    "6 of Spades",
-    "7 of Spades",
-    "8 of Spades",
-    "9 of Spades",
-    "10 of Spades",
-    "Jack of Spades",
-    "Queen of Spades",
-    "King of Spades",
-  ];
-
-  packObj = {
-    "Ace of Hearts": 1,
-    "2 of Hearts": 2,
-    "3 of Hearts": 3,
-    "4 of Hearts": 4,
-    "5 of Hearts": 5,
-    "6 of Hearts": 6,
-    "7 of Hearts": 7,
-    "8 of Hearts": 8,
-    "9 of Hearts": 9,
-    "10 of Hearts": 10,
-    "Jack of Hearts": 11,
-    "Queen of Hearts": 12,
-    "King of Hearts": 13,
-    "Ace of Diamonds": 1,
-    "2 of Diamonds": 2,
-    "3 of Diamonds": 3,
-    "4 of Diamonds": 4,
-    "5 of Diamonds": 5,
-    "6 of Diamonds": 6,
-    "7 of Diamonds": 7,
-    "8 of Diamonds": 8,
-    "9 of Diamonds": 9,
-    "10 of Diamonds": 10,
-    "Jack of Diamonds": 11,
-    "Queen of Diamonds": 12,
-    "King of Diamonds": 13,
-    "Ace of clubs": 1,
-    "2 of clubs": 2,
-    "3 of clubs": 3,
-    "4 of clubs": 4,
-    "5 of clubs": 5,
-    "6 of clubs": 6,
-    "7 of clubs": 7,
-    "8 of clubs": 8,
-    "9 of clubs": 9,
-    "10 of clubs": 10,
-    "Jack of clubs": 11,
-    "Queen of clubs": 12,
-    "King of clubs": 13,
-    "Ace of Spades": 1,
-    "2 of Spades": 2,
-    "3 of Spades": 3,
-    "4 of Spades": 4,
-    "5 of Spades": 5,
-    "6 of Spades": 6,
-    "7 of Spades": 7,
-    "8 of Spades": 8,
-    "9 of Spades": 9,
-    "10 of Spades": 10,
-    "Jack of Spades": 11,
-    "Queen of Spades": 12,
-    "King of Spades": 13,
-  };
+  for (var a in suits){
+    for (var s in values){
+      packArr.push(values[s] + " " + "of"+ " " + suits[a]);
+      packArr[values[s]+ " " + "of" + " " + suits[a]] = parseInt(s)+1
+    }
+    return asArray ? values : packArr
+  }
 
   if (!asArray) {
     return packObj;
@@ -142,6 +39,8 @@ class Deck {
    * Hint: use buildCards in this method
    */
   reset() {
+    this.deck = [];
+    this.deck = buildCards(1);
     // write your code here
   } //End of reset()
 
@@ -149,6 +48,16 @@ class Deck {
    * Shuffling the cards
    */
   shuffle() {
+    for (
+      var card = this.deck.length, cardValues = 0;
+      cardValues < card;
+      cardValues++
+    ) {
+      var r = Math.floor(Math.random() * card),
+        l = this.deck[cardValues];
+      this.deck[cardValues] = this.deck[r];
+      this.deck[r] = 1;
+    }
     // write your code here
   } //End of shuffle()
 
@@ -157,6 +66,7 @@ class Deck {
    * @returns {String} A Card from the deck of cards
    */
   deal() {
+    return this.deck.pop();
     // write your code here
   } //End of deal()
 
@@ -165,6 +75,7 @@ class Deck {
    * @returns {Boolean} True or False
    */
   isEmpty() {
+    return 0 == this.deck.length;
     // write your code here
   } //End of isEmpty()
 
@@ -174,6 +85,7 @@ class Deck {
    */
   length() {
     // write your code here
+    return this.deck.length;
   } //End of length()
 } //End of Deck Class
 
