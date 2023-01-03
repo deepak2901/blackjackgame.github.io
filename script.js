@@ -21,7 +21,7 @@ for (var a in suits){
   return packArr;
 }
 
-/**
+/** 
  * Define Deck class
  */
 class Deck {
@@ -149,6 +149,20 @@ function initialDeal() {
     deck.shuffle();
   }
 
+  card1 = new Card(deck.deal());
+  card2 = new Card(deck.deal());
+  playerCard1 = new Card(deck.deal());
+  playerCard2 = new Card(deck.deal());
+  card1.displayCard("card1", true);
+  card2.displayCard("card2", false);
+  playerCard1.displayCard("playerCard1", true);
+  playerCard2.displayCard("playerCard2", true);
+  card1.value = 10 < card1.value ? 10 : card1.value;
+  card2.value = 10 < card2.value ? 10 : card2.value;
+  playerCard1.value = 10 < playerCard1.value ? 10 : playerCard1.value;
+  playerCard2.value = 10 < playerCard2.value ? 10 : playerCard2.value;
+  21 === (playerTotal = playerCard1.value + playerCard2.value) && 
+
   // Deal(Instantiate) 2 Dealer cards and 2 Player cards
 
   // write your code here
@@ -162,7 +176,6 @@ function initialDeal() {
   // write your code here
 
   // Getting player cards total - show an alert only if there is a Blackjack
-  /*
     // Alert to show Blackjack
         cuteAlert({
             type: "success",
@@ -173,7 +186,7 @@ function initialDeal() {
         }).then(() => {
             location.reload()  // Load a new game
         })
-    */
+
 
   // write your code here
 } //End of deal()
