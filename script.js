@@ -10,8 +10,8 @@ function buildCards(asArray = true) {
   const packObj = {};
   for (var a in suits) {
     for (var s in values) {
-      packArr.push(values[s] + " " + "of" + " " + suits[a]);
-      packArr[values[s] + " " + "of" + " " + suits[a]] = parseInt(s) + 1;
+      packArr.push(values[s] + " of " + suits[a]);
+      packObj[values[s] + " of " + suits[a]] = parseInt(s) + 1;
     }
   }
 
@@ -37,8 +37,7 @@ class Deck {
    */
   reset() {
     this.deck = [];
-    this.deck = buildCards(1);
-    // write your code here
+    this.deck = buildCards(true);
   } //End of reset()
 
   /**
@@ -51,7 +50,6 @@ class Deck {
       this.deck[a] = this.deck[suits];
       this.deck[suits] = values;
     }
-    // write your code here
   } //End of shuffle()
 
   /**
@@ -60,7 +58,6 @@ class Deck {
    */
   deal() {
     return this.deck.pop();
-    // write your code here
   } //End of deal()
 
   /**
@@ -68,8 +65,7 @@ class Deck {
    * @returns {Boolean} True or False
    */
   isEmpty() {
-    return this.deck.length == 0;
-    // write your code here
+    this.deck.length == 0 ? true : false;
   } //End of isEmpty()
 
   /**
@@ -77,7 +73,6 @@ class Deck {
    * @returns {Number} Number of cards in the Deck
    */
   length() {
-    // write your code here
     return this.deck.length;
   } //End of length()
 } //End of Deck Class
@@ -110,16 +105,10 @@ class Card {
     this.placeHolder = document.getElementById(placeHolder);
     this.placeHolder.classList.add("card");
     this.flipped = flipped;
-    if (flipped) {
-      this.placeHolder.style.backgroundPosition = -150 * this.position + "px";
-    } else {
-      this.placeHolder.style.backgroundPosition = "0px";
-    }
-  } // End of displayCard
-
-  /**
-   * Method to flip the card
-   */
+    this.placeHolder.style.backgroundPosition = flipped
+      ? -150 * this.position + "px"
+      : "0px";
+  }
   flip() {
     if (this.flipped) {
       this.placeHolder.style.backgroundPosition = "0px";
@@ -128,17 +117,20 @@ class Card {
       this.placeHolder.style.backgroundPosition = -150 * this.position + "px";
       this.flipped = true;
     }
-  } //End of flip()
-} //End of Card class
+  } // End of displayCard
+}
+/**
+ * Method to flip the card
+ * End of flip()
+ * End of Card class*/
 
 /**
  * Functions which help Play the BlackJack game
  */
 const deck = new Deck();
 let card1, card2, playerCard1, playerCard2, playerCard3, playerCard4;
-
-let playerTotal = 0;
-let dealerTotal = 0;
+playerTotal = 0;
+dealerTotal = 0;
 
 /**
  * Dealing initial Cards
@@ -174,19 +166,10 @@ function initialDeal() {
 }
 
 // Deal(Instantiate) 2 Dealer cards and 2 Player cards
-
-// write your code here
-
 // Open the board with 2 Dealer cards (one Dealer card is closed) and 2 Player cards (both open)
-
-//   // write your code here
-
-//   // Setting face card values to 10
-
-//   // write your code here
-
-//   // Getting player cards total - show an alert only if there is a Blackjack
-//     // Alert to show Blackjack
+// Setting face card values to 10
+// Getting player cards total - show an alert only if there is a Blackjack
+// Alert to show Blackjack
 //         cuteAlert({
 //             type: "success",
 //             title: "Superb!!!",
@@ -196,8 +179,6 @@ function initialDeal() {
 //         }).then(() => {
 //             location.reload()  // Load a new game
 //         })
-
-//   // write your code here
 // } //End of deal()
 
 /**
@@ -206,7 +187,7 @@ function initialDeal() {
 function stand() {
   card2.flip();
   dealerTotal = card1.value + card2.value;
-  (payerTotal >= dealerTotal
+  (playerTotal >= dealerTotal
     ? cuteAlert({
         type: "success",
         title: "Congratualtions !!!",
@@ -225,67 +206,64 @@ function stand() {
     location.reload();
   });
 }
-// flip Dealer cards and compare
-// write your code here
-// Checking Dealer and Player score - to give the result using cuteAlerts (just like the alert in initialDeal function)
-// write your code here
 
+
+// flip Dealer cards and compare
+// Checking Dealer and Player score - to give the result using cuteAlerts (just like the alert in initialDeal function)
 // Variable to track the extra cards dealed
+
+
 let extraCnt = 0;
 
 /**
  * function which deals extra playercards - Max. 2 cards
  */
 function hit() {
-  let dealButton = document.getElementById("deal");
+  dealButton = document.getElementById("deal");
   playerCard3 = new Card(deck.deal());
   playerCard4 = new Card(deck.deal());
   if (0 === extraCnt) {
-      playerCard3.displayCard("playerCard3", !0);
-      playerCard3.value = 10 < playerCard3.value ? 10 : playerCard3.value;
-      playerTotal += playerCard3.value
+    playerCard3.displayCard("playerCard3", !0);
+    playerCard3.value = 10 < playerCard3.value ? 10 : playerCard3.value;
+    playerTotal += playerCard3.value;
   } else if (1 === extraCnt) {
-      playerCard4.displayCard("playerCard4", !0);
-      playerCard4.value = 10 < playerCard4.value ? 10 : playerCard4.value;
-      playerTotal += playerCard4.value
+    playerCard4.displayCard("playerCard4", !0);
+    playerCard4.value = 10 < playerCard4.value ? 10 : playerCard4.value;
+    playerTotal += playerCard4.value;
   } else {
-      e.style.display = "none";
-      cuteAlert({
-          type: "warning",
-          title: "Sorry...",
-          message: "Max. Cards dealed",
-          buttonText: "OK",
-          img: "warning.svg"
-      })
+    asArray.style.display = "none";
+    cuteAlert({
+      type: "warning",
+      title: "Sorry...",
+      message: "Max. Cards dealed",
+      buttonText: "OK",
+      img: "warning.svg",
+    });
   }
   if (21 < playerTotal) {
-      cuteAlert({
-          type: "error",
-          title: "Busted...",
-          message: "You lost the Game",
-          buttonText: "OK",
-          img: "error.svg"
-      }).then(()=>{
-          location.reload()
-      }
-      );
-      e.style.display = "none"
+    cuteAlert({
+      type: "error",
+      title: "Busted...",
+      message: "You lost the Game",
+      buttonText: "OK",
+      img: "error.svg",
+    }).then(() => {
+      location.reload();
+    });
+    asArray.style.display = "none";
   } else
-      21 === playerTotal && cuteAlert({
-          type: "success",
-          title: "Superb!!!",
-          message: "Blackjacked !!!",
-          buttonText: "Wohoo !!!",
-          img: "success.svg"
-      }).then(()=>{
-          location.reload()
-      }
-      );
+    21 === playerTotal &&
+      cuteAlert({
+        type: "success",
+        title: "Superb!!!",
+        message: "Blackjacked !!!",
+        buttonText: "Wohoo !!!",
+        img: "success.svg",
+      }).then(() => {
+        location.reload();
+      });
 
   // Dealing the extra cards that the player requests
-
-  // write your code here
-
   // Dealing new cards
   // Use conditional block
   /*
@@ -300,13 +278,9 @@ function hit() {
             img:"warning.svg"
         })
     */
-
-  // write your code here
-
   // Checking the total of the player cards before dealing new cards
   // cuteAlert - Player looses the game - as score is more than 21
   // cuteAlert - Player wins with BlackJack !!!
-
   // Increment extra card count
   extraCnt++;
 }
